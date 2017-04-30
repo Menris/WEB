@@ -1,0 +1,14 @@
+$(function() {
+	var counter = 2;
+  $("#addMore").click(function(e) {
+    e.preventDefault();
+	$("#fieldList").append("<div id='inputQuestion"+ counter +"'>");
+    $("#fieldList").append("<li>&nbsp;</li>");
+	$("#fieldList").append("<li><textarea type='text' name='question[]' placeholder='Type question "+counter+"' /></li>");
+    $("#fieldList").append("<li><input type='radio' name='group" + counter + "' id='A' required /><input type='text' name='answer"+counter+"[]' placeholder='A' required /></li>");
+    $("#fieldList").append("<li><input type='radio' name='group" + counter + "' id='B'><input type='text' name='answer"+counter+"[]' placeholder='B' required /></li>");
+    $("#fieldList").append("<li><input type='radio' name='group" + counter + "' id='C'><input type='text' name='answer"+counter+"[]' placeholder='C' required /></li>");
+	$("#fieldList").append("<li><input type='radio' name='group" + counter + "' id='D'><input type='text' name='answer"+counter+"[]' placeholder='D' required /></li></div>");
+	$("#fieldList").append("<li><a href='#' id='addAnswer' name='addAnswer" + counter + "'  onclick='javascript:addAnswer("+counter+");'> Add answer </a></li></div>");
+	counter++;
+  });

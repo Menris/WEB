@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>QuickQuiz</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <link href="input.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="vendor/device-mockups/device-mockups.min.css">
+
+    <!-- Theme CSS -->
+    <link href="css/new-age.css" rel="stylesheet">
+
+    <!-- INITIALIZING FIREBASE OBJECTS -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top">
+
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">QuickQuiz</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="page-scroll" href="#download">Start Quiz</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#features">Team</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#contact">About</a>
+                </li>
+                <li>
+                    <a class="btn btn-outline btn-xl page-scroll" data-toggle="modal" id="signUp"
+                       data-target="#myModalHorizontal">Sign Up</a>
+                </li>
+                <li>
+                    <a class="btn btn-outline btn-xl page-scroll" data-toggle="modal" id="signIn"
+                       data-target="#myModalHorizontalSignIn">Sign In</a>
+                </li>
+                <li>
+                    <a class="btn btn-outline btn-xl page-scroll" data-toggle="modal" id="signOut" onclick="signOut()">Sign
+                        Out</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="header-content">
+                    <div class="header-content-inner">
+                        <h1>Simply create your own quizes for students through mobile application!</h1>
+                        <a href="#download" class="btn btn-outline btn-xl page-scroll">Create your own quiz now!</a>
+                        <br><br><br>
+                        <img src="img/app_store.png" class="" style="width: 150px; margin-left: 0px" alt="">
+                        <img src="img/play_store.png" class="" style="width: 150px; margin-left: 20px" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <div class="device-container">
+                    <div class="device-mockup iphone6_plus portrait black">
+                        <div class="device">
+                            <div class="screen">
+                                <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
+                                <img src="img/phone_screen.png" class="img-responsive" alt="">
+                            </div>
+                            <div class="button">
+                                <!-- You can hook the "home button" to some JavaScript events or just remove it -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<section id="download" class="download text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!--<h1>Navigation </h1>-->
+                <div class="tabbable-panel">
+                    <div class="tabbable-line">
+                        <ul class="nav nav-tabs ">
+                            <li class="active">
+                                <a href="#tab_default_1" data-toggle="tab">
+                                    <h3> Create quiz </h3></a>
+                            </li>
+                            <li>
+                                <a href="#tab_default_2" data-toggle="tab">
+                                    <h3> Check statistic </h3></a>
+                            </li>
+                            <li>
+                                <a href="#tab_default_3" data-toggle="tab">
+                                    <h3> Check students result </h3></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_default_1">
+
+
+                                <div class="form-style-3">
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <fieldset id="fieldInputs" name="fieldInputs">
+                                        <legend name="questionn[]" type="text">Your quiz ID: <h1 id="quizID"></h1>
+                                        </legend>
+                                        <form id="newTestForm" name="newTestForm"
+                                              onsubmit="submitClick(); return false;">
+                                            <input type="text" name="quizTitle" placeholder="Enter you QUIZ title"
+                                                   required/>
+                                            <br>
+                                            <br>
+
+                                            <select name="selectTime" onchange="setTime(this.value)">
+                                                <option value="0">Select quiz passing time</option>
+                                                <option value="5">5min</option>
+                                                <option value="10">10min</option>
+                                                <option value="15">15min</option>
+                                                <option value="20">20min</option>
+                                                <option value="30">30min</option>
+                                            </select>
+
+                                            <br>
+                                            <br>
+                                            <ul id="fieldList" style="list-style-type:none">
+                                                <div id="inputQuestion1">
+                                                    <li>
+                                        <textarea name="question[]" id="question[]" type="text"
+                                                  placeholder="Type question 1" required></textarea>
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        <input type="radio" name="group1" id="A" required/><input
+                                                            name="answer1[]"
+                                                            id="answer1[]"
+                                                            type="text"
+                                                            placeholder="A"
+                                                            required/>
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        <input type="radio" name="group1" id="B"><input name="answer1[]"
+                                                                                                        type="text"
+                                                                                                        placeholder="B"
+                                                                                                        required/>
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        <input type="radio" name="group1" id="C"><input name="answer1[]"
+                                                                                                        type="text"
+                                                                                                        placeholder="C"
+                                                                                                        required/>
+                                                    </li>
+                                                    <br>
+                                                    <li>
+                                                        <input type="radio" name="group1" id="D"><input name="answer1[]"
+                                                                                                        type="text"
+                                                                                                        placeholder="D"
+                                                                                                        required/>
+                                                    </li>
+                                                </div>
+                                                <li>
+                                                    <a id="addAnswer" name="addAnswer1"
+                                                       onclick="javascript:addAnswer(1);" onmouseover="bac"> Add
+                                                        answer </a>
+                                                </li>
+                                            </ul>
+
+
+                                            <ul class="add_question">
+
+                                                <li class="add_question"><a href="#" class="round red" id="addMore">Add
+                                                    Question<span
+                                                            class="round">But only if you really, really want to. </span></a>
+                                                </li>
+
+                                            </ul>
+
+                                            <div class="hot-container">
+                                                <p>
+                                                    <input type="submit" class="btn btn-red" id="submitBtn"
+                                                           value="Submit"/>
+                                                </p>
+                                            </div>
+                                        </form>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="tab_default_2">
+                                <div class="form-style-3">
+                                    <div id="statistic">
+                                        <div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <fieldset id="fieldStatistic" name="fieldStatistic">
+                                                <legend name="questionn[]" type="text"><h1 id="quizStatistic">Check quiz
+                                                    statistic </h1>
+                                                </legend>
+                                                <form onsubmit="showStatistic(); return false;">
+                                                    <input type="text" class="form-control" style="width: 100%"
+                                                           placeholder="Enter PIN to see statistic"
+                                                           id="PIN" required/>
+                                                    <br>
+                                                    <input type="text" class="form-control" style="width: 100%"
+                                                           placeholder="Enter Group" id="studentGroup"
+                                                           required/> <br>
+                                                    <input type="submit" class="btn btn-red" id="submitBtnStat"
+                                                           value="Submit"/>
+                                                </form>
+                                                <div id="questionsList">
+
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab_default_3">
+                                <div class="form-style-3">
+                                    <div id="statistic_studentsResults">
+                                        <div>
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <fieldset id="fieldStatistic_studentsResults" name="fieldStatistic">
+                                                <legend name="questionn[]" type="text"><h1
+                                                        id="quizStatistic_studentsResults">
+                                                    Check students Result </h1>
+                                                </legend>
+                                                <form onsubmit="showStudentResult(); return false;">
+                                                    <input type="text" class="form-control" style="width: 100%"
+                                                           placeholder="Enter PIN to see statistic"
+                                                           id="PIN_studentsResults" required/>
+                                                    <br>
+                                                    <input type="text" class="form-control" style="width: 100%"
+                                                           placeholder="Enter Group" id="studentGroup_studentsResults"
+                                                           required/> <br>
+                                                    <input type="submit" class="btn btn-red"
+                                                           id="submitBtnStat_studentsResults"
+                                                           value="Submit"/>
+                                                </form>
+                                                <div id="resultList">
+
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="cta-content">
+        <div class="container">
+            <h2>Stop waiting.<br>Start building.</h2>
+            <a href="#contact" class="btn btn-outline btn-xl page-scroll">Let's Get Started!</a>
+        </div>
+    </div>
+    <div class="overlay"></div>
+</section>
+
+<section id="contact" class="contact bg-primary">
+    <div class="container">
+        <h2>We <i class="fa fa-heart"></i> new friends!</h2>
+        <ul class="list-inline list-social">
+            <li class="social-twitter">
+                <a href="#"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li class="social-facebook">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+            </li>
+            <li class="social-google-plus">
+                <a href="#"><i class="fa fa-google-plus"></i></a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2017. All Rights Reserved.</p>
+        <ul class="list-inline">
+            <li>
+                <a href="#">Privacy</a>
+            </li>
+            <li>
+                <a href="#">Terms</a>
+            </li>
+            <li>
+                <a href="#">FAQ</a>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+
+<!-- jQuery -->
+<script src="vendor/jquery/jquery.min.js"></script>
+
+<!-- jQuery Question Input-->
+<script src="addInput.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+<!-- Theme JavaScript -->
+<script src="js/new-age.min.js"></script>
+
+<!-- FIREBASE SCRIPT -->
+<script src="firebase_myApp.js"></script>
+<script src="firebase_statistic.js"></script>
+
+<!-- FANCYBOX MY SCRIPT -->
+<script src="fancybox.js"></script>
+<script src="canvasjs.min.js"></script>
+
+<!-- Add fancyBox -->
+<link rel="stylesheet" href="fancybox/source/jquery.fancybox.css" type="text/css" media="screen"/>
+<script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Sign Up
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <form class="form-horizontal" onsubmit="signUp(); return false;" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"
+                               for="inputName3">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control"
+                                   id="inputName3" placeholder="Name" required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"
+                               for="inputEmail3">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control"
+                                   id="inputEmail3" placeholder="Email" required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"
+                               for="inputPassword3">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control"
+                                   id="inputPassword3" placeholder="Password" placeholder='Enter your email'
+                                   pattern='^(?=.*[A-Za-z]).{6,}$' title='6 or more characters' required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"
+                               for="inputPassword3">Choose role</label>
+                        <label class="radio-inline"><input type="radio" name="role" id="studentRole"
+                                                           onclick="javascript:setRole('student');"
+                                                           required>Student</label>
+                        <label class="radio-inline"><input type="radio" name="role" id="teacherRole"
+                                                           onclick="javascript:setRole('teacher');">Teacher</label>
+                    </div>
+
+                    <div class="form-group" id="ifStudent" style="display:none">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"
+                                   for="inputGroup3">Group Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control"
+                                       id="inputGroup3" placeholder="Group Name"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="">
+                        <button type="submit" class="btn btn-default">Sign in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModalHorizontalSignIn" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Sign In
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <form class="form-horizontal" onsubmit="signIn(); return false;" role="form">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"
+                               for="inputEmailSignIn">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control"
+                                   id="inputEmailSignIn" placeholder="Email" required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"
+                               for="inputEmailSignIn">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control"
+                                   id="inputPasswordSignIn" placeholder="Password"
+                                   pattern='^(?=.*[A-Za-z]).{6,}$' title='6 or more characters' required/>
+                        </div>
+                    </div>
+                    <div class="">
+                        <button type="submit" class="btn btn-default">Sign in</button>
+                    </div>
+                </form>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+{
+  "notification": {
+    "title": "Portugal vs. Denmark",
+    "body": "5 to 1",
+    "icon": "firebase-logo.png",
+    "click_action": "http://localhost:8081"
+  },
+  "to": "fp0ZvJ83mZ0:APA91bFl0KldU1zS3PxzBDquWFOB6p6vDB9c8DWWd4vyy9_JkWIbjh9IWhUfb8bhsDCItAX9UL-9ae6_ARWVbvIushVgkaD-fQqjBLxILnxTxxLPYK4lnhriY_qQXuErQ-IBoJ-FHCvC"
+}
+
+curl -X POST --header "Authorization: key=AIzaSyBOufkehZtx8l7FErtstXY98mlPTXWQ4vU" --header "Content-Type: application/json" https://fcm.googleapis.com/fcm/send -d "{\"to\":\"fp0ZvJ83mZ0:APA91bFl0KldU1zS3PxzBDquWFOB6p6vDB9c8DWWd4vyy9_JkWIbjh9IWhUfb8bhsDCItAX9UL-9ae6_ARWVbvIushVgkaD-fQqjBLxILnxTxxLPYK4lnhriY_qQXuErQ-IBoJ-FHCvC\",\"priority\":\"high\",\"notification\":{\"body\": \"FOO BAR BLA BLA\"}}"﻿
